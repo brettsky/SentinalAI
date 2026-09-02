@@ -15,30 +15,30 @@ terraform {
 
 
 
-resource "local_file" "Sentinel-logs" {
-  for_each = local.environments
-  filename = "${path.module}/Sentinel-${each.key}/logs/logs.txt"
-  content  = "environment=${each.key} log_level=${each.value.log-level}"
-}
+ resource "local_file" "Sentinel-logs" {
+  for_each = var.environment
+  filename = "${path.module}/Sentinel-${each.key}/config/environment.conf"
+  content  = "environment=${each.key} log_level=${var.log-level[each.key]}"
+ }
 
-resource "local_file" "Sentinel-app-conf" {
-  for_each = local.environments
-  filename = "${path.module}/Sentinel-${each.key}/config/application.conf"
-  content  = "environment=${each.key} log_level=${each.value.log-level}"
+ resource "local_file" "Sentinel-app-conf" {
+  for_each = var.environment
+  filename = "${path.module}/Sentinel-${each.key}/config/environment.conf"
+  content  = "environment=${each.key} log_level=${var.log-level[each.key]}"
 
-}
+ }
 
 resource "local_file" "Sentinel-env-conf" {
-  for_each = local.environments
+  for_each = var.environment
   filename = "${path.module}/Sentinel-${each.key}/config/environment.conf"
-  content  = "environment=${each.key} log_level=${each.value.log-level}"
+  content  = "environment=${each.key} log_level=${var.log-level[each.key]}"
 }
 
 
-resource "local_file" "Sentinel-data" {
-  for_each = local.environments
-  filename = "${path.module}/Sentinel-${each.key}/data/data.txt"
-  content  = "environment=${each.key} log_level=${each.value.log-level}"
-}
+ resource "local_file" "Sentinel-data" {
+  for_each = var.environment
+  filename = "${path.module}/Sentinel-${each.key}/config/environment.conf"
+  content  = "environment=${each.key} log_level=${var.log-level[each.key]}"
+ }
 
 
