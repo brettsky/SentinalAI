@@ -1,1 +1,1 @@
-environment=prod log_level=super super high
+environment=prod log_level=CRITICAL
